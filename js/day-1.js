@@ -24,7 +24,7 @@ function sumCalibration(line) {
 
   //trouver le dernier chiffre
   findLastDigit(line);
-
+  c(line + " " + firstDigit + " " + lastDigit);
   return firstDigit + lastDigit;
 }
 
@@ -41,8 +41,11 @@ function findFirstDigit(line) {
 
 function findLastDigit(line) {
   for (let i = line.length - 1; i >= 0; i--) {
+    c(line[i]);
+    c(is_numeric(line[i]));
     if (is_numeric(line[i])) {
       lastDigit = line[i];
+      c(lastDigit);
       break;
     }
   }
@@ -69,7 +72,25 @@ submitPartTwo.addEventListener("click", (e) => {
   output.textContent = "";
   let tab = puzzle.value.split(" ");
   tab.forEach((line) => {
-    answer += parseInt(sumCalibrationPartTwo(line));
+    c(line + " avant");
+    let newLine = "";
+    newLine = replaceWordsWithDigits(line);
+    answer += parseInt(sumCalibration(newLine));
   });
   output.textContent = answer.toString();
 });
+function replaceWordsWithDigits(line) {
+  c(line);
+  let word = line;
+  return word
+    .replace(/zero/g, "z0ero")
+    .replace(/one/g, "o1ne")
+    .replace(/two/g, "t2wo")
+    .replace(/three/g, "th3ree")
+    .replace(/four/g, "f4our")
+    .replace(/five/g, "f5ive")
+    .replace(/six/g, "s6ix")
+    .replace(/seven/g, "s7even")
+    .replace(/eight/g, "e8ight")
+    .replace(/nine/g, "n9ine");
+}
